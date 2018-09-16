@@ -1,25 +1,46 @@
-<project>
+<project name="Project1" default="compile" basedir=".">
 
-    <target name="clean">
-        <delete dir="bin"/>
+    <description>
+        Project 1 build file
+    </description>
+
+    <property name="source.dir" location="src"/>
+    <property name="build.dir" location="bin"/>
+    <property name="dist.dir" location="dist"/>
+    <property name="doc.dir" location="doc"/>
+
+    <target name="init">
+        <mkdir dir="${build.dir}"/>
+        <mkdir dir="${dist.dir}"/>
+        <mkdir dir="${doc.dir}"/>
     </target>
 
-    <target name="compile">
-        <mkdir dir="bin"/>
-        <javac srcdir="src" destdir="bin"/>
+    <target name="compile" depends="init">
+        <javac srcdir="${source.dir}" destdir="${build.dir}"/>
     </target>
 
-    <target name="jar">
-        <mkdir dir="dist"/>
-        <jar destfile="dist/HelloWorld.jar" basedir="bin">
+    <target name="dist" depends="compile">
+        <jar destfile="${dist.dir}/HelloWorld.jar" basedir="${build.dir}">
             <manifest>
                 <attribute name="Main-Class" value="HelloWorld"/>
             </manifest>
         </jar>
+        <jar destfile="${dist.dir}/SearchMap.jar" basedir="${build.dir}">
+            <manifest>
+                <attribute name="Main-Class" value="SearchMap"/>
+            </manifest>
+        </jar>
     </target>
 
-    <target name="run">
-        <java jar="dist/HelloWorld.jar" fork="true"/>
+    <target name="clean">
+        <delete dir="${build.dir}"/>
+        <delete dir="${dist.dir}"/>
+        <delete dir="${doc.dir}"/>
+    </target>
+
+    <target name="run" depends="dist">
+        <!-- <java jar="${dist.dir}/HelloWorld.jar" fork="true"/> -->
+        <java jar="${dist.dir}/SearchMap.jar" fork="true"/>
     </target>
 
 </project>
