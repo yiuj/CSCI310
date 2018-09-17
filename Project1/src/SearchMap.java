@@ -1,6 +1,5 @@
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 
 public class SearchMap {
     public class Graph
@@ -92,29 +91,18 @@ public class SearchMap {
         // put your code here
         System.out.println("Searching Map");
 
-        FileInputStream in = null;
-        FileOutputStream out = null;
-
-        try {
-            in = new FileInputStream("inputfile.txt");
-            //out = new FileOutputStream("output.txt");
-            int i;
-            char c;
-            // while((i = in.read()) != -1) {
-            //     // converts integer to character
-            //     c = (char)i; 
-            //     // prints character
-            //     System.out.print(c);
-            // }
-        } finally {
-            if (in != null) {
-                in.close();
-            }
-        }
+        Scanner sc = new Scanner(new File("inputfile.txt"));
 
         Graph graph = new Graph();
-        graph.addEdge("P", "S", 200);
-        graph.addEdge("S", "O", 300);
+
+        String start = sc.next();
+
+        while (sc.hasNextLine()) {
+            String src = sc.next();
+            String dest = sc.next();
+            int cost = Integer.parseInt(sc.next());
+            graph.addEdge(src, dest, cost);
+        }
 
         graph.printGraph();
         graph.printCosts();
