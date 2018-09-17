@@ -1,4 +1,0 @@
-Destination    Flight Route from P     Total Cost
-X				P,O,X        			$600                
-Z				P,O,X,Z      			$1200               
-O				P,O          			$200                
