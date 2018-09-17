@@ -6,6 +6,7 @@ public class SearchMap {
     public class Graph
     {
         HashMap<String, ArrayList<String> > adjListArray;
+        HashMap<String, Integer> edgeWeights;
             
         // constructor 
         public Graph()
@@ -14,7 +15,8 @@ public class SearchMap {
             // define the size of array as 
             // number of vertices
             adjListArray = new HashMap<String, ArrayList<String> >();
-                
+            
+            edgeWeights = new HashMap<String, Integer>();
             // Create a new list for each vertex
             // such that adjacent nodes can be stored
             // for(int i = 0; i < V ; i++){
@@ -28,7 +30,7 @@ public class SearchMap {
         }
 
         // Adds an edge to a directed graph
-        public void addEdge(String src, String dest)
+        public void addEdge(String src, String dest, int cost)
         {
             if(!adjListArray.containsKey(src)) {
                 this.addVertex(src);
@@ -38,6 +40,7 @@ public class SearchMap {
             }
             // Add an edge from src to dest. 
             this.adjListArray.get(src).add(dest);
+            this.edgeWeights.put(src + " " + dest, cost);
         }
         // A utility function to print the adjacency list 
         // representation of graph
@@ -58,6 +61,16 @@ public class SearchMap {
                 for(int i=0; i<adjListArray.get(name).size(); i++) {
                     System.out.print(adjListArray.get(name).get(i) + " ");
                 }
+                System.out.println("");  
+            } 
+        }
+
+        public void printCosts()
+        {
+            for (String name: edgeWeights.keySet()){
+                System.out.print(name);
+                System.out.print(" ---> ");
+                System.out.print(edgeWeights.get(name));
                 System.out.println("");  
             } 
         }
@@ -100,16 +113,10 @@ public class SearchMap {
         }
 
         Graph graph = new Graph();
-        graph.addEdge("P", "S");
-        graph.addEdge("S", "O");
-        // graph.addEdge(1, 2);
-        // graph.addEdge(1, 3);
-        // graph.addEdge(1, 4);
-        // graph.addEdge(2, 3);
-        // graph.addEdge(3, 4);
-      
-        // // print the adjacency list representation of 
-        // // the above graph
+        graph.addEdge("P", "S", 200);
+        graph.addEdge("S", "O", 300);
+
         graph.printGraph();
+        graph.printCosts();
     }
 }
