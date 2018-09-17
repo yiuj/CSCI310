@@ -38,7 +38,6 @@ public class SearchMap {
                 }
             } 
             writer.close();
-            System.out.println("Success");
         } 
         else {
             System.out.println("Incorrect input: call java SearchMap <inputfile> <outputfile>");

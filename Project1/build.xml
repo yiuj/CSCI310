@@ -59,7 +59,7 @@
     </target>
 
     <target name="test" depends="dist">
-        <junit printsummary="on" haltonfailure="yes" fork="true" showoutput="true">
+        <junit printsummary="on" fork="true" showoutput="true">
             <classpath>
                 <pathelement location="${build.dir}" />    
                 <pathelement location="lib/junit-4.10.jar"/>

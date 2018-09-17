@@ -20,4 +20,16 @@ public class TestGraph {
         assertTrue("Graph has vertex O", graph.adjListArray.containsKey("O"));
         assertTrue("Graph has edge weight from P to O, 200", graph.edgeWeights.get("P O") == 200);
     }
+
+    /** A JUnit test method to test adjacentTo(). */
+    @Test
+    public void testAdjacentTo() {
+        Graph graph = new Graph();
+        graph.addEdge("P", "O", 200);
+        graph.addEdge("P", "X", 300);
+        graph.addEdge("O", "X", 400);
+        assertTrue("P had 2 adjacent locations", graph.adjacentTo("P").size() == 2);
+        assertTrue("O had 1 adjacent locations", graph.adjacentTo("O").size() == 1);
+        assertTrue("X had 0 adjacent locations", graph.adjacentTo("X").size() == 0);
+    }
 }

@@ -19,16 +19,16 @@ public class FlightPathFinder {
         
         Queue<String> queue = new LinkedList<String>();
         queue.add(src);
-        dist.put(src, 0);
+        dist.put(src, 0); // distance to source from source is 0
         
         // Running BFS on the graph
-        while (!queue.isEmpty()) {
-            String v = queue.poll();
-            for (String w : graph.adjacentTo(v)) {
-                if (!dist.containsKey(w)) {
-                    queue.add(w);
-                    dist.put(w, 1 + dist.get(v));
-                    prev.put(w, v);
+        while(!queue.isEmpty()) {
+            String vert = queue.poll(); // this pops from the front of the queue
+            for (String adj : graph.adjacentTo(vert)) {
+                if (!dist.containsKey(adj)) {
+                    queue.add(adj); // adds to the end of the queue
+                    dist.put(adj, 1 + dist.get(vert));
+                    prev.put(adj, vert);
                 }
             }
         }
