@@ -1,50 +1,65 @@
 import java.io.*;
-import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class SearchMap {
     public class Graph
     {
-        int V;
-        LinkedList<Integer> adjListArray[];
+        HashMap<String, ArrayList<String> > adjListArray;
             
         // constructor 
-        public Graph(int V)
+        public Graph()
         {
-            this.V = V;
                 
             // define the size of array as 
             // number of vertices
-            adjListArray = new LinkedList[V];
+            adjListArray = new HashMap<String, ArrayList<String> >();
                 
             // Create a new list for each vertex
             // such that adjacent nodes can be stored
-            for(int i = 0; i < V ; i++){
-                adjListArray[i] = new LinkedList<>();
-            }
+            // for(int i = 0; i < V ; i++){
+            //     adjListArray[i] = new LinkedList<>();
+            // }
         }
-        // Adds an edge to an undirected graph
-        public void addEdge(int src, int dest)
+
+        public void addVertex(String name)
         {
+            adjListArray.put(name, new ArrayList<String>());
+        }
+
+        // Adds an edge to a directed graph
+        public void addEdge(String src, String dest)
+        {
+            if(!adjListArray.containsKey(src)) {
+                this.addVertex(src);
+            }
+            if(!adjListArray.containsKey(dest)) {
+                this.addVertex(dest);
+            }
             // Add an edge from src to dest. 
-            this.adjListArray[src].addFirst(dest);
-                
-            // Since graph is undirected, add an edge from dest
-            // to src also
-            this.adjListArray[dest].addFirst(src);
+            this.adjListArray.get(src).add(dest);
         }
         // A utility function to print the adjacency list 
         // representation of graph
         public void printGraph()
         {       
-            for(int v = 0; v < this.V; v++)
-            {
-                System.out.println("Adjacency list of vertex "+ v);
-                System.out.print("head");
-                for(Integer pCrawl: this.adjListArray[v]){
-                    System.out.print(" -> "+pCrawl);
+            // for(int v = 0; v < adjListArray.size(); v++)
+            // {
+            //     System.out.println("Adjacency list of vertex "+ v);
+            //     System.out.print("head");
+            //     for(Integer pCrawl: this.adjListArray[v]){
+            //         System.out.print(" -> "+pCrawl);
+            //     }
+            //     System.out.println("\n");
+            // }
+            for (String name: adjListArray.keySet()){
+                System.out.print(name);
+                System.out.print(" ---> ");
+                for(int i=0; i<adjListArray.get(name).size(); i++) {
+                    System.out.print(adjListArray.get(name).get(i) + " ");
                 }
-                System.out.println("\n");
-            }
+                System.out.println("");  
+            } 
         }
     }
     public static void main(String[] args) throws IOException{
@@ -84,18 +99,17 @@ public class SearchMap {
             }
         }
 
-        int V = 5;
-        Graph graph = new Graph(V);
-        graph.addEdge(0, 1);
-        graph.addEdge(0, 4);
-        graph.addEdge(1, 2);
-        graph.addEdge(1, 3);
-        graph.addEdge(1, 4);
-        graph.addEdge(2, 3);
-        graph.addEdge(3, 4);
+        Graph graph = new Graph();
+        graph.addEdge("P", "S");
+        graph.addEdge("S", "O");
+        // graph.addEdge(1, 2);
+        // graph.addEdge(1, 3);
+        // graph.addEdge(1, 4);
+        // graph.addEdge(2, 3);
+        // graph.addEdge(3, 4);
       
-        // print the adjacency list representation of 
-        // the above graph
+        // // print the adjacency list representation of 
+        // // the above graph
         graph.printGraph();
     }
 }
