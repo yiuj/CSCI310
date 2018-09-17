@@ -1,0 +1,104 @@
+<project name="Project1" default="compile" basedir=".">
+
+    <description>
+        Project 1 build file
+    </description>
+
+    <property name="source.dir" location="src"/>
+    <property name="build.dir" location="bin"/>
+    <property name="dist.dir" location="dist"/>
+    <property name="doc.dir" location="doc"/>
+
+    <target name="init">
+        <mkdir dir="${build.dir}"/>
+        <mkdir dir="${dist.dir}"/>
+        <mkdir dir="${doc.dir}"/>
+    </target>
+
+    <target name="doc" depends="init">
+        <javadoc sourcepath="${source.dir}" destdir="${doc.dir}">
+            <fileset dir="."/>
+            <classpath>
+                <pathelement location="lib/junit-4.10.jar"/>
+            </classpath>  
+        </javadoc>
+    </target>
+
+
+    <target name="compile" depends="init"> 
+        <javac srcdir="${source.dir}" destdir="${build.dir}">
+            <classpath>
+                <pathelement location="lib/junit-4.10.jar"/>
+            </classpath>  
+        </javac>
+    </target>
+
+    <target name="dist" depends="compile">
+        <jar destfile="${dist.dir}/SearchMap.jar" basedir="${build.dir}">
+            <manifest>
+                <attribute name="Main-Class" value="SearchMap"/>
+            </manifest>
+        </jar>
+        <jar destfile="${dist.dir}/FlightMap.jar" basedir="${build.dir}">
+            <manifest>
+                <attribute name="Main-Class" value="FlightMap"/>
+            </manifest>
+        </jar>
+        <jar destfile="${dist.dir}/Graph.jar" basedir="${build.dir}">
+            <manifest>
+                <attribute name="Main-Class" value="FlightMap"/>
+            </manifest>
+        </jar>
+        <jar destfile="${dist.dir}/FlightPathFinder.jar" basedir="${build.dir}">
+            <manifest>
+                <attribute name="Main-Class" value="FlightPathFinder"/>
+            </manifest>
+        </jar>
+        <jar destfile="${dist.dir}/TestGraph.jar" basedir="${build.dir}">
+            <manifest>
+                <attribute name="Main-Class" value="TestGraph"/>
+            </manifest>
+        </jar>
+        <jar destfile="${dist.dir}/TestFlightPathFinder.jar" basedir="${build.dir}">
+            <manifest>
+                <attribute name="Main-Class" value="TestFlightPathFinder"/>
+            </manifest>
+        </jar>
+        <jar destfile="${dist.dir}/TestFlightMap.jar" basedir="${build.dir}">
+            <manifest>
+                <attribute name="Main-Class" value="TestFlightMap"/>
+            </manifest>
+        </jar>
+        <jar destfile="${dist.dir}/TestSearchMap.jar" basedir="${build.dir}">
+            <manifest>
+                <attribute name="Main-Class" value="TestSearchMap"/>
+            </manifest>
+        </jar>
+    </target>
+
+    <target name="test" depends="dist">
+        <junit printsummary="on" fork="true" showoutput="true">
+            <classpath>
+                <pathelement location="${build.dir}" />    
+                <pathelement location="lib/junit-4.10.jar"/>
+            </classpath>  
+            <batchtest fork="yes">
+                <fileset dir="${source.dir}">
+                    <include name="TestGraph.java"/>
+                    <include name="TestFlightPathFinder.java"/>
+                    <include name="TestFlightMap.java"/>
+                    <include name="TestSearchMap.java"/>
+                </fileset>
+            </batchtest>
+
+        </junit>
+
+    </target>
+
+    <target name="clean">
+        <delete dir="${build.dir}"/>
+        <delete dir="${dist.dir}"/>
+        <delete dir="${doc.dir}"/>
+    </target>
+
+</project>
