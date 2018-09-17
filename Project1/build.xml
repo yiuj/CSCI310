@@ -15,16 +15,15 @@
         <mkdir dir="${doc.dir}"/>
     </target>
 
+    <target name="doc" depends="init">
+        <javadoc sourcepath="${source.dir}" destdir="${dest.dir}"/>
+    </target>
+
     <target name="compile" depends="init">
-        <javac srcdir="${source.dir}" destdir="${build.dir}"/>
+        <javac srcdir="${source.dir}/projectone" destdir="${build.dir}"/>
     </target>
 
     <target name="dist" depends="compile">
-        <jar destfile="${dist.dir}/HelloWorld.jar" basedir="${build.dir}">
-            <manifest>
-                <attribute name="Main-Class" value="HelloWorld"/>
-            </manifest>
-        </jar>
         <jar destfile="${dist.dir}/SearchMap.jar" basedir="${build.dir}">
             <manifest>
                 <attribute name="Main-Class" value="SearchMap"/>
@@ -39,8 +38,8 @@
     </target>
 
     <target name="run" depends="dist">
-        <!-- <java jar="${dist.dir}/HelloWorld.jar" fork="true"/> -->
         <java jar="${dist.dir}/SearchMap.jar" fork="true"/>
+        <java jar="${dist.dir}/FlightMap.jar" fork="true"/>
     </target>
 
 </project>
