@@ -2,31 +2,40 @@
 import java.io.*;
 import java.util.*;
 
+/**
+* Implementation of a directed weighted graph
+*/
 public class Graph {
+    // adjacency list representing the graph
     HashMap<String, ArrayList<String> > adjListArray;
+    // maps strings (two locations concatenated) to edge weights
     HashMap<String, Integer> edgeWeights;
         
-    // constructor 
+    /**
+    * Constructor for Graph
+    */
     public Graph()
     {
-            
-        // define the size of array as 
-        // number of vertices
-        adjListArray = new HashMap<String, ArrayList<String> >();
-        
+        adjListArray = new HashMap<String, ArrayList<String> >();   
         edgeWeights = new HashMap<String, Integer>();
-        // Create a new list for each vertex
-        // such that adjacent nodes can be stored
-        // for(int i = 0; i < V ; i++){
-        //     adjListArray[i] = new LinkedList<>();
-        // }
     }
 
+    /**
+    * Adds a new vertex to the graph
+    *
+    * @param    name    The name of the new vertex
+    */
     public void addVertex(String name) {
         adjListArray.put(name, new ArrayList<String>());
     }
 
-    // Adds an edge to a directed graph
+    /**
+    * Adds a new vertex to the graph
+    *
+    * @param    src     The source destination of the directed edge
+    * @param    dest    The final destination of the directed edge
+    * @param    cost    The weight of the directed edge
+    */
     public void addEdge(String src, String dest, int cost) {
         if(!adjListArray.containsKey(src)) {
             this.addVertex(src);
@@ -34,11 +43,17 @@ public class Graph {
         if(!adjListArray.containsKey(dest)) {
             this.addVertex(dest);
         }
-        // Add an edge from src to dest. 
         this.adjListArray.get(src).add(dest);
         this.edgeWeights.put(src + " " + dest, cost);
     }
 
+    /**
+    * Gets all adjacent locations to a given location
+    *
+    * @param    v       The vertex of which to find the adjacent vertices
+    * 
+    * @return   An ArrayList of vertices that v is adjacent to. If vertex does not exist, return null.
+    */
     public ArrayList<String> adjacentTo(String v) {
         if(adjListArray.containsKey(v)) {
             return adjListArray.get(v);
@@ -46,8 +61,9 @@ public class Graph {
         return null;
     }
 
-    // A utility function to print the adjacency list 
-    // representation of graph
+    /**
+    * Utility method to print the graph represented as an adjacency list
+    */
     public void printGraph()
     {       
         for (String name: adjListArray.keySet()){
@@ -60,6 +76,9 @@ public class Graph {
         } 
     }
 
+    /**
+    * Utility method to print the edge weights / costs
+    */
     public void printCosts()
     {
         for (String name: edgeWeights.keySet()){

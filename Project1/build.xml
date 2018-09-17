@@ -16,11 +16,14 @@
     </target>
 
     <target name="doc" depends="init">
-        <javadoc sourcepath="${source.dir}" destdir="${dest.dir}"/>
+        <javadoc sourcepath="${source.dir}" destdir="${doc.dir}">
+            <fileset dir="."/>
+        </javadoc>
     </target>
 
+
     <target name="compile" depends="init">
-        <javac srcdir="${source.dir}/projectone" destdir="${build.dir}"/>
+        <javac srcdir="${source.dir}" destdir="${build.dir}"/>
     </target>
 
     <target name="dist" depends="compile">
@@ -29,17 +32,27 @@
                 <attribute name="Main-Class" value="SearchMap"/>
             </manifest>
         </jar>
+        <jar destfile="${dist.dir}/FlightMap.jar" basedir="${build.dir}">
+            <manifest>
+                <attribute name="Main-Class" value="FlightMap"/>
+            </manifest>
+        </jar>
+        <jar destfile="${dist.dir}/Graph.jar" basedir="${build.dir}">
+            <manifest>
+                <attribute name="Main-Class" value="FlightMap"/>
+            </manifest>
+        </jar>
+        <jar destfile="${dist.dir}/FlightPathFinder.jar" basedir="${build.dir}">
+            <manifest>
+                <attribute name="Main-Class" value="FlightPathFinder"/>
+            </manifest>
+        </jar>
     </target>
 
     <target name="clean">
         <delete dir="${build.dir}"/>
         <delete dir="${dist.dir}"/>
         <delete dir="${doc.dir}"/>
-    </target>
-
-    <target name="run" depends="dist">
-        <java jar="${dist.dir}/SearchMap.jar" fork="true"/>
-        <java jar="${dist.dir}/FlightMap.jar" fork="true"/>
     </target>
 
 </project>
