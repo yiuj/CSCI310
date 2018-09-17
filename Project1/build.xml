@@ -61,6 +61,16 @@
                 <attribute name="Main-Class" value="TestFlightPathFinder"/>
             </manifest>
         </jar>
+        <jar destfile="${dist.dir}/TestFlightMap.jar" basedir="${build.dir}">
+            <manifest>
+                <attribute name="Main-Class" value="TestFlightMap"/>
+            </manifest>
+        </jar>
+        <jar destfile="${dist.dir}/TestSearchMap.jar" basedir="${build.dir}">
+            <manifest>
+                <attribute name="Main-Class" value="TestSearchMap"/>
+            </manifest>
+        </jar>
     </target>
 
     <target name="test" depends="dist">
@@ -73,6 +83,8 @@
                 <fileset dir="${source.dir}">
                     <include name="TestGraph.java"/>
                     <include name="TestFlightPathFinder.java"/>
+                    <include name="TestFlightMap.java"/>
+                    <include name="TestSearchMap.java"/>
                 </fileset>
             </batchtest>
 

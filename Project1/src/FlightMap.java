@@ -26,7 +26,6 @@ public class FlightMap {
         String last = src;
         for (int i=pth.size()-2; i>=0; i--) {
             pathString += "," + pth.get(i);
-            // System.out.print("   " + pth.get(i));
             cost += graph.edgeWeights.get(last + " " + pth.get(i));
             last = pth.get(i);
         }
@@ -50,7 +49,6 @@ public class FlightMap {
         int cost = 0;
         String last = src;
         for (int i=pth.size()-2; i>=0; i--) {
-            // System.out.print("   " + pth.get(i));
             cost += graph.edgeWeights.get(last + " " + pth.get(i));
             last = pth.get(i);
         }

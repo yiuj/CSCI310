@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 /** A JUnit test class to test the class Graph. */
 public class TestFlightPathFinder {
-    /** A JUnit test method to test addVertex(). */
+    /** A JUnit test method to test pathTo(). */
     @Test
     public void testPathTo() {
         Graph graph = new Graph();
