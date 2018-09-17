@@ -50,15 +50,6 @@ public class SearchMap {
         // representation of graph
         public void printGraph()
         {       
-            // for(int v = 0; v < adjListArray.size(); v++)
-            // {
-            //     System.out.println("Adjacency list of vertex "+ v);
-            //     System.out.print("head");
-            //     for(Integer pCrawl: this.adjListArray[v]){
-            //         System.out.print(" -> "+pCrawl);
-            //     }
-            //     System.out.println("\n");
-            // }
             for (String name: adjListArray.keySet()){
                 System.out.print(name);
                 System.out.print(" ---> ");
@@ -162,23 +153,51 @@ public class SearchMap {
             graph.addEdge(src, dest, cost);
         }
 
-        graph.printGraph();
-        graph.printCosts();
+        // graph.printGraph();
+        // graph.printCosts();
 
         System.out.println("Testing Pathfinder...");
-
-        PathFinder pf = new PathFinder(graph, start);
         
-        ArrayList<String> pth = pf.pathTo("Z");
+        //OUTPUT
+        System.out.println("Destination\tFlight Route from " + start + "\tTotal Cost");
+        for (String dest: graph.adjListArray.keySet()){
+            String cost = getCost(graph, start, dest);
+            if(!cost.equals("$0")) {
+                System.out.print(dest + "\t\t\t");
+                System.out.print(getPath(graph, start, dest) + "\t\t");
+                System.out.print(cost + "\n");
+            }
+        } 
+    }
+
+    public String getPath(Graph graph, String src, String dest) {
+        String pathString = src;
+
+        PathFinder pf = new PathFinder(graph, src);
+        ArrayList<String> pth = pf.pathTo(dest);
 
         int cost = 0;
-        String last = start;
-        System.out.print(pth.get(pth.size()-1));
+        String last = src;
         for (int i=pth.size()-2; i>=0; i--) {
-            System.out.print("   " + pth.get(i));
+            pathString += "," + pth.get(i);
+            // System.out.print("   " + pth.get(i));
             cost += graph.edgeWeights.get(last + " " + pth.get(i));
             last = pth.get(i);
         }
-        System.out.println("\nCost: " + cost + "\n");
+        return pathString;
+    }
+    public String getCost(Graph graph, String src, String dest) {
+        PathFinder pf = new PathFinder(graph, src);
+        
+        ArrayList<String> pth = pf.pathTo(dest);
+
+        int cost = 0;
+        String last = src;
+        for (int i=pth.size()-2; i>=0; i--) {
+            // System.out.print("   " + pth.get(i));
+            cost += graph.edgeWeights.get(last + " " + pth.get(i));
+            last = pth.get(i);
+        }
+        return "$" + Integer.toString(cost);
     }
 }
