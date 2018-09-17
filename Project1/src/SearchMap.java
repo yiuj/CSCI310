@@ -156,18 +156,22 @@ public class SearchMap {
         // graph.printGraph();
         // graph.printCosts();
 
-        System.out.println("Testing Pathfinder...");
+        System.out.println("Testing SearchMap...");
         
         //OUTPUT
-        System.out.println("Destination\tFlight Route from " + start + "\tTotal Cost");
+        PrintWriter writer = new PrintWriter("outputfile.txt", "UTF-8");
+        writer.printf("%-15s%15s%15s\n", "Destination", "Flight Route from " + start, "Total Cost");
         for (String dest: graph.adjListArray.keySet()){
             String cost = getCost(graph, start, dest);
             if(!cost.equals("$0")) {
-                System.out.print(dest + "\t\t\t");
-                System.out.print(getPath(graph, start, dest) + "\t\t");
-                System.out.print(cost + "\n");
+                writer.print(dest + "\t\t\t\t");
+                writer.printf("%-13s\t\t\t", getPath(graph, start, dest));
+                writer.printf("%-20s\n", cost);
+                // writer.print( + "\t\t");
+                // writer.print(cost + "\n");
             }
         } 
+        writer.close();
     }
 
     public String getPath(Graph graph, String src, String dest) {
