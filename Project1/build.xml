@@ -22,8 +22,12 @@
     </target>
 
 
-    <target name="compile" depends="init">
-        <javac srcdir="${source.dir}" destdir="${build.dir}"/>
+    <target name="compile" depends="init"> 
+        <javac srcdir="${source.dir}" destdir="${build.dir}">
+            <classpath>
+                <pathelement location="lib/junit-4.10.jar"/>
+            </classpath>  
+        </javac>
     </target>
 
     <target name="dist" depends="compile">
@@ -47,6 +51,27 @@
                 <attribute name="Main-Class" value="FlightPathFinder"/>
             </manifest>
         </jar>
+        <jar destfile="${dist.dir}/TestGraph.jar" basedir="${build.dir}">
+            <manifest>
+                <attribute name="Main-Class" value="TestGraph"/>
+            </manifest>
+        </jar>
+    </target>
+
+    <target name="test" depends="dist">
+        <junit printsummary="on" haltonfailure="yes" fork="true" showoutput="true">
+            <classpath>
+                <pathelement location="${build.dir}" />    
+                <pathelement location="lib/junit-4.10.jar"/>
+            </classpath>  
+            <batchtest fork="yes">
+                <fileset dir="${source.dir}">
+                    <include name="TestGraph.java"/>
+                </fileset>
+            </batchtest>
+
+        </junit>
+
     </target>
 
     <target name="clean">

@@ -61,31 +61,31 @@ public class Graph {
         return null;
     }
 
-    /**
-    * Utility method to print the graph represented as an adjacency list
-    */
-    public void printGraph()
-    {       
-        for (String name: adjListArray.keySet()){
-            System.out.print(name);
-            System.out.print(" ---> ");
-            for(int i=0; i<adjListArray.get(name).size(); i++) {
-                System.out.print(adjListArray.get(name).get(i) + " ");
-            }
-            System.out.println("");  
-        } 
-    }
+    // /**
+    // * Utility method to print the graph represented as an adjacency list
+    // */
+    // public void printGraph()
+    // {       
+    //     for (String name: adjListArray.keySet()){
+    //         System.out.print(name);
+    //         System.out.print(" ---> ");
+    //         for(int i=0; i<adjListArray.get(name).size(); i++) {
+    //             System.out.print(adjListArray.get(name).get(i) + " ");
+    //         }
+    //         System.out.println("");  
+    //     } 
+    // }
 
-    /**
-    * Utility method to print the edge weights / costs
-    */
-    public void printCosts()
-    {
-        for (String name: edgeWeights.keySet()){
-            System.out.print(name);
-            System.out.print(" ---> ");
-            System.out.print(edgeWeights.get(name));
-            System.out.println("");  
-        } 
-    }
+    // /**
+    // * Utility method to print the edge weights / costs
+    // */
+    // public void printCosts()
+    // {
+    //     for (String name: edgeWeights.keySet()){
+    //         System.out.print(name);
+    //         System.out.print(" ---> ");
+    //         System.out.print(edgeWeights.get(name));
+    //         System.out.println("");  
+    //     } 
+    // }
 }
